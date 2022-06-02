@@ -1,4 +1,4 @@
-package ru.job4j.store;
+package ru.job4j.persistence;
 
 import ru.job4j.model.Post;
 
