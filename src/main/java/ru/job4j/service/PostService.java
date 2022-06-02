@@ -1,18 +1,20 @@
 package ru.job4j.service;
 
+import org.springframework.stereotype.Service;
 import ru.job4j.model.Post;
 import ru.job4j.persistence.PostStore;
 
 import java.util.Collection;
 
+@Service
 public class PostService {
 
-    private static final PostService INST = new PostService();
+    private final PostStore postStore;
 
-    private final PostStore postStore = PostStore.instOf();
+    public PostService(PostStore postStore) {
 
-    public static PostService instOf() {
-        return INST;
+        this.postStore = postStore;
+
     }
 
     public Collection<Post> findAll() {
