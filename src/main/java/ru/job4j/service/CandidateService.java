@@ -1,11 +1,13 @@
 package ru.job4j.service;
 
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.model.Candidate;
 import ru.job4j.persistence.CandidateStore;
 
 import java.util.Collection;
 
+@ThreadSafe
 @Service
 public class CandidateService {
 
