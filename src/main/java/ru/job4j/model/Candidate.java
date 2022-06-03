@@ -18,6 +18,11 @@ public class Candidate implements Serializable {
     public Candidate() {
     }
 
+    public Candidate(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Candidate(int id, String name, byte[] photo, String description, City city, String created) {
         this.id = id;
         this.name = name;
