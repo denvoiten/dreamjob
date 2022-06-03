@@ -11,7 +11,7 @@ public class Candidate implements Serializable {
 
     private byte[] photo;
 
-    private LocalDate created = LocalDate.now();
+    private String created = String.valueOf(LocalDate.now());
 
     private City city;
 
@@ -47,11 +47,11 @@ public class Candidate implements Serializable {
         this.description = description;
     }
 
-    public LocalDate getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDate created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 
