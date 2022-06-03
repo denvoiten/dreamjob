@@ -2,8 +2,8 @@ package ru.job4j.persistence;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.stereotype.Repository;
+import ru.job4j.model.Candidate;
 import ru.job4j.model.City;
-import ru.job4j.model.Post;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,26 +15,26 @@ import java.util.List;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 @Repository
-public class PostDBStore {
+public class CandidateDBStore {
 
     private final BasicDataSource pool;
 
-    public PostDBStore(BasicDataSource pool) {
+    public CandidateDBStore(BasicDataSource pool) {
         this.pool = pool;
     }
 
-    public List<Post> findAll() {
-        List<Post> posts = new ArrayList<>();
+    public List<Candidate> findAll() {
+        List<Candidate> candidates = new ArrayList<>();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("SELECT * FROM post")
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidates")
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    posts.add(new Post(
+                    candidates.add(new Candidate(
                             it.getInt("id"),
                             it.getString("name"),
+                            it.getBytes("photo"),
                             it.getString("description"),
-                            it.getBoolean("visible"),
                             new City(it.getInt("city_id")),
                             it.getString("created")));
                 }
@@ -42,59 +42,59 @@ public class PostDBStore {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return posts;
+        return candidates;
     }
 
-    public Post add(Post post) {
+    public Candidate add(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("INSERT INTO post(name, description, visible, city_id, created) VALUES (?, ?, ?, ?, ?)",
+             PreparedStatement ps = cn.prepareStatement("INSERT INTO candidates(name, photo, description, city_id, created) VALUES (?, ?, ?, ?, ?)",
                      RETURN_GENERATED_KEYS)
         ) {
-            ps.setString(1, post.getName());
-            ps.setString(2, post.getDescription());
-            ps.setBoolean(3, post.isVisible());
-            ps.setInt(4, post.getCity().getId());
+            ps.setString(1, candidate.getName());
+            ps.setBytes(2, candidate.getPhoto());
+            ps.setString(3, candidate.getDescription());
+            ps.setInt(4, candidate.getCity().getId());
             ps.setString(5, LocalDateTime.now().toString().split("T")[0]);
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
-                    post.setId(id.getInt(1));
+                    candidate.setId(id.getInt(1));
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return post;
+        return candidate;
     }
 
-    public void update(Post post) {
+    public void update(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("UPDATE post SET name = ?, description = ?, visible = ?, city_id = ? WHERE id = ?")
+             PreparedStatement ps = cn.prepareStatement("UPDATE candidates SET name = ?, photo = ?, description = ?, city_id = ? WHERE id = ?")
         ) {
-            ps.setString(1, post.getName());
-            ps.setString(2, post.getDescription());
-            ps.setBoolean(3, post.isVisible());
-            ps.setInt(4, post.getCity().getId());
-            ps.setInt(5, post.getId());
+            ps.setString(1, candidate.getName());
+            ps.setBytes(2, candidate.getPhoto());
+            ps.setString(3, candidate.getDescription());
+            ps.setInt(4, candidate.getCity().getId());
+            ps.setInt(5, candidate.getId());
             ps.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public Post findById(int id) {
-        Post post = null;
+    public Candidate findById(int id) {
+        Candidate candidate = null;
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("SELECT * FROM post WHERE id = ?")
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidates WHERE id = ?")
         ) {
             ps.setInt(1, id);
             try (ResultSet it = ps.executeQuery()) {
                 if (it.next()) {
-                    post = new Post(
+                    candidate = new Candidate(
                             it.getInt("id"),
                             it.getString("name"),
+                            it.getBytes("photo"),
                             it.getString("description"),
-                            it.getBoolean("visible"),
                             new City(it.getInt("city_id")),
                             it.getString("created"));
                 }
@@ -102,6 +102,6 @@ public class PostDBStore {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return post;
+        return candidate;
     }
 }

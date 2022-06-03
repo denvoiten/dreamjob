@@ -15,6 +15,18 @@ public class Candidate implements Serializable {
 
     private City city;
 
+    public Candidate() {
+    }
+
+    public Candidate(int id, String name, byte[] photo, String description, City city, String created) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.photo = photo;
+        this.created = created;
+        this.city = city;
+    }
+
     public City getCity() {
         return city;
     }

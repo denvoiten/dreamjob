@@ -59,8 +59,8 @@ public class CandidateController {
     }
 
     @PostMapping("/updateCandidate")
-    public String updatePost(@ModelAttribute Candidate candidate,
-                             @RequestParam("file") MultipartFile file) throws IOException {
+    public String updateCandidate(@ModelAttribute Candidate candidate,
+                                  @RequestParam("file") MultipartFile file) throws IOException {
         candidate.setPhoto(file.getBytes());
         candidate.setCity(cityService.findById(candidate.getCity().getId()));
         candidateService.update(candidate);
