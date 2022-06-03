@@ -47,13 +47,13 @@
                     <input type="hidden" name="id" th:field="*{id}"/>
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-10">
-                                <label for="name" class="col-12">Вакансия
+                            <div class="col-9">
+                                <label for="name" class="col">Вакансия
                                     <input type="text" class="form-control" name="name" id="name" th:field="*{name}">
                                 </label>
                             </div>
-                            <div class="col-2">
-                                <label for="city.id" class="col-12">Город
+                            <div class="col-3">
+                                <label for="city.id" class="col">Город
                                     <select class="form-control" id="city.id" name="city.id">
                                         <option th:each="city : ${cities}" th:value="${city.id}"
                                                 th:text="${city.name}"></option>
@@ -61,8 +61,8 @@
                                 </label>
                             </div>
                         </div>
-                        <label for="description" class="col-12">Описание
-                            <input type="text" class="form-control" placeholder="Введите описание" name="description"
+                        <label for="description" class="col">Описание
+                            <input type="text" class="form-control" name="description"
                                    id="description" th:field="*{description}"></label>
                     </div>
                     <div class="form-check">

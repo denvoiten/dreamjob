@@ -9,8 +9,19 @@ public class Candidate implements Serializable {
     private String name;
     private String description;
 
-    private boolean visible;
+    private byte[] photo;
+
     private LocalDate created = LocalDate.now();
+
+    private City city;
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
 
     public int getId() {
         return id;
@@ -36,20 +47,20 @@ public class Candidate implements Serializable {
         this.description = description;
     }
 
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
-
     public LocalDate getCreated() {
         return created;
     }
 
     public void setCreated(LocalDate created) {
         this.created = created;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     @Override
