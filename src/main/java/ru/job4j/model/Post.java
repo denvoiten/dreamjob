@@ -12,6 +12,16 @@ public class Post implements Serializable {
     private boolean visible;
     private LocalDate created = LocalDate.now();
 
+    private City city;
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
     public int getId() {
         return id;
     }

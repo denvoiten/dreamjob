@@ -45,13 +45,27 @@
             </div>
             <div class="card-body">
                 <form th:action="@{/createPost}" method="POST">
+                    <input type="hidden" name="id" value="0"/>
                     <div class="form-group">
-                        <label>Название вакансии
-                            <input type="text" class="form-control" placeholder="Введите название" name="name"
-                                   id="name">
-                        </label>
-                        <label>Описание
-                            <input type="text" class="form-control" placeholder="Введите описание" name="description"
+                        <div class="row">
+                            <div class="col-10">
+                                <label for="name" class="col-12">Вакансия
+                                    <input type="text" class="form-control" placeholder="Введите название" name="name"
+                                           id="name">
+                                </label>
+                            </div>
+                            <div class="col-2">
+                                <label for="city.id" class="col-12">Город
+                                    <select class="form-control" id="city.id" name="city.id">
+                                        <option th:each="city : ${cities}" th:value="${city.id}"
+                                                th:text="${city.name}"></option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <label for="description" class="col-12">Описание
+                            <input type="text" class="form-control" placeholder="Введите описание"
+                                   name="description"
                                    id="description">
                         </label>
                     </div>
