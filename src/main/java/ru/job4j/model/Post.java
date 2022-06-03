@@ -1,7 +1,6 @@
 package ru.job4j.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class Post implements Serializable {
@@ -10,9 +9,21 @@ public class Post implements Serializable {
     private String description;
 
     private boolean visible;
-    private LocalDate created = LocalDate.now();
+    private String created;
 
     private City city;
+
+    public Post() {
+    }
+
+    public Post(int id, String name, String description, boolean visible, City city, String created) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.visible = visible;
+        this.created = created;
+        this.city = city;
+    }
 
     public City getCity() {
         return city;
@@ -54,11 +65,11 @@ public class Post implements Serializable {
         this.visible = visible;
     }
 
-    public LocalDate getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDate created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 

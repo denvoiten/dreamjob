@@ -3,35 +3,41 @@ package ru.job4j.service;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.model.Post;
-import ru.job4j.persistence.PostStore;
+import ru.job4j.persistence.PostDBStore;
 
-import java.util.Collection;
+import java.util.List;
 
 @ThreadSafe
 @Service
 public class PostService {
 
-    private final PostStore postStore;
+    private final PostDBStore postDBStore;
+    private final CityService cityService;
 
-    public PostService(PostStore postStore) {
-
-        this.postStore = postStore;
-
+    public PostService(PostDBStore postDBStore, CityService cityService) {
+        this.postDBStore = postDBStore;
+        this.cityService = cityService;
     }
 
-    public Collection<Post> findAll() {
-        return postStore.findAll();
+    public List<Post> findAll() {
+        List<Post> posts = postDBStore.findAll();
+        posts.forEach(
+                post -> post.setCity(
+                        cityService.findById(post.getCity().getId())
+                )
+        );
+        return posts;
     }
 
     public void add(Post post) {
-        postStore.add(post);
+        postDBStore.add(post);
     }
 
     public Post findById(int id) {
-        return postStore.findById(id);
+        return postDBStore.findById(id);
     }
 
     public void update(Post post) {
-        postStore.update(post);
+        postDBStore.update(post);
     }
 }
