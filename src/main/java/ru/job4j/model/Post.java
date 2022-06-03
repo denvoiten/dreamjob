@@ -1,12 +1,15 @@
 package ru.job4j.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Post {
+public class Post implements Serializable {
     private int id;
     private String name;
     private String description;
+
+    private boolean visible;
     private LocalDate created = LocalDate.now();
 
     public int getId() {
@@ -31,6 +34,14 @@ public class Post {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     public LocalDate getCreated() {
