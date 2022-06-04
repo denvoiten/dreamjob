@@ -1,6 +1,8 @@
 package ru.job4j.persistence;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.model.Candidate;
 import ru.job4j.model.City;
@@ -16,6 +18,7 @@ import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 @Repository
 public class CandidateDBStore {
+    private static final Logger LOG = LoggerFactory.getLogger(CandidateDBStore.class.getName());
 
     private final BasicDataSource pool;
 
@@ -26,7 +29,7 @@ public class CandidateDBStore {
     public List<Candidate> findAll() {
         List<Candidate> candidates = new ArrayList<>();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidates")
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidates ORDER BY id")
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
@@ -40,7 +43,7 @@ public class CandidateDBStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in FIND ALL CANDIDATES method", e);
         }
         return candidates;
     }
@@ -62,7 +65,7 @@ public class CandidateDBStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in ADD CANDIDATE method", e);
         }
         return candidate;
     }
@@ -78,7 +81,7 @@ public class CandidateDBStore {
             ps.setInt(5, candidate.getId());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in UPDATE CANDIDATE method", e);
         }
     }
 
@@ -100,7 +103,7 @@ public class CandidateDBStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in FIND CANDIDATE BY ID method", e);
         }
         return candidate;
     }
