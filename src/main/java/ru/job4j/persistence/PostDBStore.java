@@ -1,6 +1,8 @@
 package ru.job4j.persistence;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.model.City;
 import ru.job4j.model.Post;
@@ -16,6 +18,7 @@ import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 @Repository
 public class PostDBStore {
+    private static final Logger LOG = LoggerFactory.getLogger(PostDBStore.class.getName());
 
     private final BasicDataSource pool;
 
@@ -40,7 +43,7 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in FIND ALL POST method", e);
         }
         return posts;
     }
@@ -62,7 +65,7 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in ADD POST method", e);
         }
         return post;
     }
@@ -78,7 +81,7 @@ public class PostDBStore {
             ps.setInt(5, post.getId());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in UPDATE POST method", e);
         }
     }
 
@@ -100,7 +103,7 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in FIND BY ID POST method", e);
         }
         return post;
     }
