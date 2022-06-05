@@ -17,3 +17,11 @@ CREATE TABLE if not exists candidates
     city_id int,
     created text
 );
+
+CREATE TABLE if not exists users (
+  id SERIAL PRIMARY KEY,
+  name varchar UNIQUE NOT NULL,
+  email varchar UNIQUE NOT NULL,
+  password TEXT,
+  CONSTRAINT email_unique UNIQUE (name, email)
+);

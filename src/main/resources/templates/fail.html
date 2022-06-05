@@ -31,7 +31,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <ul class="nav nav-pills">
-                    <a class="nav-item nav-link active" href="#">Главная <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link bg-light" th:href="@{/index}">Главная </a>
                     <a class="nav-item nav-link bg-light" th:href="@{/posts}">Вакансии</a>
                     <a class="nav-item nav-link bg-light" th:href="@{/formAddPost}">Добавить вакансию</a>
                     <a class="nav-item nav-link bg-light" th:href="@{/candidates}">Кандидаты</a>
@@ -46,36 +46,11 @@
         </div>
     </nav>
     <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="card" style="width: 100%">
+            <div class="card-header text-center">
+                <h2>Ошибка регистрации!</h2>
+            </div>
+        </div>
     </div>
 </div>
 </body>
