@@ -31,11 +31,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" th:href="@{/index}">Главная </a>
-                <a class="nav-item nav-link active" href="#">Вакансии<span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" th:href="@{/formAddPost}">Добавить вакансию</a>
-                <a class="nav-item nav-link" th:href="@{/candidates}">Кандидаты</a>
-                <a class="nav-item nav-link" th:href="@{/formAddCandidate}">Добавить кандидата</a>
+                <ul class="nav nav-pills">
+                    <a class="nav-item nav-link bg-light" th:href="@{/index}">Главная </a>
+                    <a class="nav-item nav-link active" href="#">Вакансии<span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link bg-light" th:href="@{/formAddPost}">Добавить вакансию</a>
+                    <a class="nav-item nav-link bg-light" th:href="@{/candidates}">Кандидаты</a>
+                    <a class="nav-item nav-link bg-light" th:href="@{/formAddCandidate}">Добавить кандидата</a>
+                </ul>
             </div>
         </div>
     </nav>
@@ -43,20 +45,19 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Вакансия</th>
-                <th scope="col">Описание</th>
-                <th scope="col">Город</th>
-                <th scope="col">Дата создания</th>
+                <th class="text-center" scope="col" style="width:5%">#</th>
+                <th class="text-center" scope="col" style="width:20%">Вакансия</th>
+                <th class="text-center" scope="col" style="width:38%">Описание</th>
+                <th class="text-center" scope="col" style="width:15%">Город</th>
+                <th class="text-center" scope="col" style="width:13%">Дата создания</th>
+                <th class="text-center" scope="col" style="width:2%"></th>
+                <th class="text-center" scope="col" style="width:2%"></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="post: ${posts}">
                 <td th:text="${post.id}"></td>
                 <td>
-                    <a th:href="@{|/formUpdatePost/${post.id}|}">
-                        <i class="fa fa-edit"></i>
-                    </a>
                     <span th:text="${post.name}"></span>
                     <span th:if="${post.visible}">
             <i class="fa fa-check-square-o"></i></span>
@@ -64,8 +65,22 @@
             <i class="fa fa-square-o"></i></span>
                 </td>
                 <td th:text="${post.description}"></td>
-                <td th:text="${post.city.name}"></td>
-                <td th:text="${post.created}"></td>
+                <td class="text-center" th:text="${post.city.name}"></td>
+                <td class="text-center" th:text="${post.created}"></td>
+                <td>
+                    <button class="btn btn-link">
+                        <a th:href="@{|/formUpdatePost/${post.id}|}">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </button>
+                </td>
+                <td>
+                    <form th:action="'/posts/' + ${post.id} + '/delete/'" method="POST">
+                        <button class="btn btn-link" type="submit">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>

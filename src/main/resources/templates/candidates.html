@@ -31,11 +31,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" th:href="@{/index}">Главная </a>
-                <a class="nav-item nav-link" th:href="@{/posts}">Вакансии</a>
-                <a class="nav-item nav-link" th:href="@{/formAddPost}">Добавить вакансию</a>
-                <a class="nav-item nav-link active" href="#">Кандидаты<span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" th:href="@{/formAddCandidate}">Добавить кандидата</a>
+                <ul class="nav nav-pills">
+                    <a class="nav-item nav-link bg-light" th:href="@{/index}">Главная </a>
+                    <a class="nav-item nav-link bg-light" th:href="@{/posts}">Вакансии</a>
+                    <a class="nav-item nav-link bg-light" th:href="@{/formAddPost}">Добавить вакансию</a>
+                    <a class="nav-item nav-link active" href="#">Кандидаты<span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link bg-light" th:href="@{/formAddCandidate}">Добавить кандидата</a>
+                </ul>
             </div>
         </div>
     </nav>
@@ -43,29 +45,40 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Имя</th>
-                <th scope="col">Фото</th>
-                <th scope="col">Описание</th>
-                <th scope="col">Город</th>
-                <th scope="col">Дата создания</th>
+                <th class="text-center" scope="col" style="width:5%">#</th>
+                <th class="text-center" scope="col" style="width:15%">Имя</th>
+                <th class="text-center" scope="col" style="width:5%">Фото</th>
+                <th class="text-center" scope="col" style="width:32%">Описание</th>
+                <th class="text-center" scope="col" style="width:15%">Город</th>
+                <th class="text-center" scope="col" style="width:13%">Дата создания</th>
+                <th class="text-center" scope="col" style="width:1%"></th>
+                <th class="text-center" scope="col" style="width:1%"></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="candidate: ${candidates}">
                 <td th:text="${candidate.id}"></td>
-                <td>
-                    <a th:href="@{|/formUpdateCandidate/${candidate.id}|}">
-                        <i class="fa fa-edit"></i>
-                    </a>
-                    <span th:text="${candidate.name}"></span>
-                </td>
+                <td th:text="${candidate.name}"></td>
                 <td>
                     <img alt="Photo" th:width="150" th:high="150" th:src="@{|/photoCandidate/${candidate.id}|}">
                 </td>
                 <td th:text="${candidate.description}"></td>
-                <td th:text="${candidate.city.name}"></td>
-                <td th:text="${candidate.created}"></td>
+                <td class="text-center" th:text="${candidate.city.name}"></td>
+                <td class="text-center" th:text="${candidate.created}"></td>
+                <td>
+                    <button class="btn btn-link">
+                        <a th:href="@{|/formUpdateCandidate/${candidate.id}|}">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </button>
+                </td>
+                <td>
+                    <form th:action="'/candidates/' + ${candidate.id} + '/delete/'" method="POST">
+                    <button class="btn btn-link" type="submit">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>

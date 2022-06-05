@@ -40,4 +40,8 @@ public class CandidateService {
     public void update(Candidate candidate) {
         candidateDBStore.update(candidate);
     }
+
+    public void delete(Candidate candidate) {
+        candidateDBStore.delete(candidate);
+    }
 }

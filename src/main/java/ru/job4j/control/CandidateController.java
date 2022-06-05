@@ -19,6 +19,7 @@ import java.io.IOException;
 @ThreadSafe
 @Controller
 public class CandidateController {
+    private static final String REDIRECT = "redirect:/candidates";
 
     private final CandidateService candidateService;
 
@@ -48,7 +49,7 @@ public class CandidateController {
         candidate.setCity(cityService.findById(candidate.getCity().getId()));
         candidate.setPhoto(file.getBytes());
         candidateService.add(candidate);
-        return "redirect:/candidates";
+        return REDIRECT;
     }
 
     @GetMapping("/formUpdateCandidate/{candidateId}")
@@ -64,7 +65,7 @@ public class CandidateController {
         candidate.setPhoto(file.getBytes());
         candidate.setCity(cityService.findById(candidate.getCity().getId()));
         candidateService.update(candidate);
-        return "redirect:/candidates";
+        return REDIRECT;
     }
 
     @GetMapping("/photoCandidate/{candidateId}")
@@ -75,5 +76,12 @@ public class CandidateController {
                 .contentLength(candidate.getPhoto().length)
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
                 .body(new ByteArrayResource(candidate.getPhoto()));
+    }
+
+    @PostMapping("/candidates/{candidateId}/delete")
+    public String deleteCandidate(@PathVariable(value = "candidateId") int id) {
+        Candidate candidate = candidateService.findById(id);
+        candidateService.delete(candidate);
+        return REDIRECT;
     }
 }

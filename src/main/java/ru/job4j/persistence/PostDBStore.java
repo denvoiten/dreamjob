@@ -107,4 +107,15 @@ public class PostDBStore {
         }
         return post;
     }
+
+    public void delete(Post post) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("DELETE FROM post WHERE id = ?")
+        ) {
+            ps.setInt(1, post.getId());
+            ps.execute();
+        } catch (Exception e) {
+            LOG.error("Exception in DELETE POST method", e);
+        }
+    }
 }

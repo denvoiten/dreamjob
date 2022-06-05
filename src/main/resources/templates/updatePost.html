@@ -29,11 +29,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" th:href="@{/index}">Главная </a>
-                <a class="nav-item nav-link" th:href="@{/posts}">Вакансии</a>
-                <a class="nav-item nav-link" th:href="@{/formAddPost}">Добавить вакансию</a>
-                <a class="nav-item nav-link" th:href="@{/candidates}">Кандидаты</a>
-                <a class="nav-item nav-link" th:href="@{/formAddCandidate}">Добавить кандидата</a>
+                <ul class="nav nav-pills">
+                    <a class="nav-item nav-link bg-light" th:href="@{/index}">Главная </a>
+                    <a class="nav-item nav-link bg-light" th:href="@{/posts}">Вакансии</a>
+                    <a class="nav-item nav-link bg-light" th:href="@{/formAddPost}">Добавить вакансию</a>
+                    <a class="nav-item nav-link bg-light" th:href="@{/candidates}">Кандидаты</a>
+                    <a class="nav-item nav-link bg-light" th:href="@{/formAddCandidate}">Добавить кандидата</a>
+                </ul>
             </div>
         </div>
     </nav>
@@ -66,7 +68,8 @@
                                    id="description" th:field="*{description}"></label>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" name="visible" class="form-check-input" id="visible" th:field="*{visible}">
+                        <input type="checkbox" name="visible" class="form-check-input" id="visible"
+                               th:field="*{visible}">
                         <label class="form-check-label" for="visible">Опубликовать</label>
                     </div>
                     <button type="submit" class="btn btn-primary mt-3">Сохранить</button>

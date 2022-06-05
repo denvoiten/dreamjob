@@ -14,6 +14,7 @@ import ru.job4j.service.PostService;
 @ThreadSafe
 @Controller
 public class PostController {
+    private static final String REDIRECT = "redirect:/posts";
 
     private final PostService postService;
     private final CityService cityService;
@@ -40,7 +41,7 @@ public class PostController {
     public String createPost(@ModelAttribute Post post) {
         post.setCity(cityService.findById(post.getCity().getId()));
         postService.add(post);
-        return "redirect:/posts";
+        return REDIRECT;
     }
 
     @GetMapping("/formUpdatePost/{postId}")
@@ -54,6 +55,13 @@ public class PostController {
     public String updatePost(@ModelAttribute Post post) {
         post.setCity(cityService.findById(post.getCity().getId()));
         postService.update(post);
-        return "redirect:/posts";
+        return REDIRECT;
+    }
+
+    @PostMapping("/posts/{postId}/delete")
+    public String deletePost(@PathVariable(value = "postId") int id) {
+        Post post = postService.findById(id);
+        postService.delete(post);
+        return REDIRECT;
     }
 }
