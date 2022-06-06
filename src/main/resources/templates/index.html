@@ -79,8 +79,8 @@
             <tr th:each="candidate: ${candidates}">
                 <td th:text="${candidate.id}"></td>
                 <td th:text="${candidate.name}"></td>
-                <td>
-                    <img alt="Photo" th:width="150" th:high="150" th:src="@{|/photoCandidate/${candidate.id}|}">
+                <td class="text-center">
+                    <img alt="Нет фото" th:width="200" th:src="@{|/photoCandidate/${candidate.id}|}">
                 </td>
                 <td th:text="${candidate.description}"></td>
                 <td class="text-center" th:text="${candidate.city.name}"></td>
