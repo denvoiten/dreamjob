@@ -8,6 +8,7 @@
     <div class="bootstrapStyle">
         <th:block th:insert="bootstrapStyle :: div"/>
     </div>
+    <title>Dream Job!</title>
 </head>
 <body>
 <div class="container">
@@ -36,12 +37,12 @@
         <table class="table">
             <thead>
             <tr>
-                <th class="text-center" scope="col" style="width:5%">#</th>
+                <th class="text-center" scope="col" style="width:4%">#</th>
                 <th class="text-center" scope="col" style="width:15%">Имя</th>
                 <th class="text-center" scope="col" style="width:5%">Фото</th>
-                <th class="text-center" scope="col" style="width:32%">Описание</th>
-                <th class="text-center" scope="col" style="width:15%">Город</th>
-                <th class="text-center" scope="col" style="width:13%">Дата создания</th>
+                <th class="text-center" scope="col" style="width:30%">Описание</th>
+                <th class="text-center" scope="col" style="width:18%">Город</th>
+                <th class="text-center" scope="col" style="width:17%">Дата создания</th>
                 <th class="text-center" scope="col" style="width:1%"></th>
                 <th class="text-center" scope="col" style="width:1%"></th>
             </tr>
@@ -65,9 +66,9 @@
                 </td>
                 <td>
                     <form th:action="'/candidates/' + ${candidate.id} + '/delete/'" method="POST">
-                    <button class="btn btn-link" type="submit">
-                        <i class="fa fa-trash"></i>
-                    </button>
+                        <button class="btn btn-link" type="submit">
+                            <i class="fa fa-trash"></i>
+                        </button>
                     </form>
                 </td>
             </tr>

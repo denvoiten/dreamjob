@@ -8,6 +8,7 @@
     <div class="bootstrapStyle">
         <th:block th:insert="bootstrapStyle :: div"/>
     </div>
+    <title>Dream Job!</title>
 </head>
 <body>
 <div class="container">
@@ -59,12 +60,12 @@
                             </div>
                         </div>
                         <label for="description" class="col">Описание
-                            <input type="text" class="form-control" placeholder="Введите описание"
-                                   name="description"
-                                   id="description">
+                            <textarea class="form-control" placeholder="Введите описание"
+                                      name="description"
+                                      id="description" rows="4"></textarea>
                         </label>
-                        <label for="name" class="col">Фотография</label>
-                        <input type="file" class="form-control" name="file" id="file">
+                        <label for="name" class="col mt-2">Добавить фотографию</label>
+                        <input type="file" class="btn" name="file" id="file">
                     </div>
                     <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
                 </form>

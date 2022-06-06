@@ -7,6 +7,7 @@
     <div class="bootstrapStyle">
         <th:block th:insert="bootstrapStyle :: div"/>
     </div>
+    <title>Dream Job!</title>
 </head>
 <body>
 <div class="container">
@@ -56,8 +57,10 @@
                             </div>
                         </div>
                         <label for="description" class="col">Описание
-                            <input type="text" class="form-control" name="description"
-                                   id="description" th:field="*{description}"></label>
+                            <textarea class="form-control" placeholder="Введите описание"
+                                      name="description"
+                                      id="description" rows="4" th:field="*{description}"></textarea>
+                        </label>
                     </div>
                     <div class="form-check">
                         <input type="checkbox" name="visible" class="form-check-input" id="visible"

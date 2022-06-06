@@ -8,6 +8,7 @@
     <div class="bootstrapStyle">
         <th:block th:insert="bootstrapStyle :: div"/>
     </div>
+    <title>Dream Job!</title>
 </head>
 <body>
 <div class="container">
@@ -32,34 +33,58 @@
             <th:block th:insert="template :: div"/>
         </div>
     </nav>
-    <div class="row">
+    <div class="row justify-content-center">
+        <div class="card-header text-center mt-1" style="width: 100%">
+            Новые вакансии
+        </div>
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th class="text-center" scope="col" style="width:5%">#</th>
+                <th class="text-center" scope="col" style="width:20%">Вакансия</th>
+                <th class="text-center" scope="col" style="width:38%">Описание</th>
+                <th class="text-center" scope="col" style="width:15%">Город</th>
+                <th class="text-center" scope="col" style="width:13%">Дата создания</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+            <tr th:each="post: ${posts}">
+                <td th:text="${post.id}"></td>
+                <td>
+                    <span th:text="${post.name}"></span>
+                </td>
+                <td th:text="${post.description}"></td>
+                <td class="text-center" th:text="${post.city.name}"></td>
+                <td class="text-center" th:text="${post.created}"></td>
             </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row justify-content-center">
+        <div class="card-header text-center mt-1" style="width: 100%">
+            Новые кандидаты
+        </div>
+        <table class="table">
+            <thead>
             <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
+                <th class="text-center" scope="col" style="width:5%">#</th>
+                <th class="text-center" scope="col" style="width:15%">Имя</th>
+                <th class="text-center" scope="col" style="width:5%">Фото</th>
+                <th class="text-center" scope="col" style="width:32%">Описание</th>
+                <th class="text-center" scope="col" style="width:15%">Город</th>
+                <th class="text-center" scope="col" style="width:13%">Дата создания</th>
             </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
+            </thead>
+            <tbody>
+            <tr th:each="candidate: ${candidates}">
+                <td th:text="${candidate.id}"></td>
+                <td th:text="${candidate.name}"></td>
+                <td>
+                    <img alt="Photo" th:width="150" th:high="150" th:src="@{|/photoCandidate/${candidate.id}|}">
+                </td>
+                <td th:text="${candidate.description}"></td>
+                <td class="text-center" th:text="${candidate.city.name}"></td>
+                <td class="text-center" th:text="${candidate.created}"></td>
             </tr>
             </tbody>
         </table>
