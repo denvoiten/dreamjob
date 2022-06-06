@@ -39,16 +39,15 @@
                 </ul>
             </div>
         </div>
-        <div class="navbar-nav justify-content-end">
-            <ul class="nav nav-pills">
-                <a class="nav-item nav-link bg-light" th:href="@{/registration}">Регистрация</a>
-            </ul>
-        </div>
     </nav>
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header text-center">
                 <h2 th:text="${message}"></h2>
+                <a th:href="@{/registration}" class="btn btn-primary mt-3 active" role="button" aria-pressed="true">
+                    Попробовать еще раз</a>
+                <a th:href="@{/index}" class="btn btn-secondary mt-3 active" role="button" aria-pressed="true">
+                    Вернутся на главную</a>
             </div>
         </div>
     </div>

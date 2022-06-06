@@ -24,6 +24,7 @@ public class UserDBStore {
     }
 
     public Optional<User> add(User user) {
+        Optional<User> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("INSERT INTO users(name, email, password) VALUES (?, ?, ?)",
                      RETURN_GENERATED_KEYS)
@@ -37,10 +38,10 @@ public class UserDBStore {
                     user.setId(id.getInt(1));
                 }
             }
+            rsl = Optional.of(user);
         } catch (Exception e) {
-            user = null;
             LOG.error("Exception in ADD USER method", e);
         }
-        return Optional.ofNullable(user);
+        return rsl;
     }
 }
