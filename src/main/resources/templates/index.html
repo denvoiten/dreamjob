@@ -40,7 +40,6 @@
         <table class="table">
             <thead>
             <tr>
-                <th class="text-center" scope="col" style="width:5%">#</th>
                 <th class="text-center" scope="col" style="width:20%">Вакансия</th>
                 <th class="text-center" scope="col" style="width:38%">Описание</th>
                 <th class="text-center" scope="col" style="width:15%">Город</th>
@@ -49,7 +48,6 @@
             </thead>
             <tbody>
             <tr th:if="${post.visible}" th:each="post: ${posts}">
-                <td th:text="${post.id}"></td>
                 <td>
                     <span th:text="${post.name}"></span>
                 </td>
@@ -60,35 +58,35 @@
             </tbody>
         </table>
     </div>
+    <hr class="row bg-light"/>
     <div class="row justify-content-center">
-        <div class="card-header text-center mt-1" style="width: 100%">
-            Новые кандидаты
+            <div class="card-header text-center " style="width: 100%">
+                Новые кандидаты
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="text-center" scope="col" style="width:15%">Имя</th>
+                    <th class="text-center" scope="col" style="width:5%">Фото</th>
+                    <th class="text-center" scope="col" style="width:32%">Описание</th>
+                    <th class="text-center" scope="col" style="width:15%">Город</th>
+                    <th class="text-center" scope="col" style="width:13%">Дата создания</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="candidate: ${candidates}">
+                    <td th:text="${candidate.name}"></td>
+                    <td class="text-center">
+                        <img alt="Нет фото" th:width="200" th:src="@{|/photoCandidate/${candidate.id}|}">
+                    </td>
+                    <td th:text="${candidate.description}"></td>
+                    <td class="text-center" th:text="${candidate.city.name}"></td>
+                    <td class="text-center" th:text="${candidate.created}"></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <table class="table">
-            <thead>
-            <tr>
-                <th class="text-center" scope="col" style="width:5%">#</th>
-                <th class="text-center" scope="col" style="width:15%">Имя</th>
-                <th class="text-center" scope="col" style="width:5%">Фото</th>
-                <th class="text-center" scope="col" style="width:32%">Описание</th>
-                <th class="text-center" scope="col" style="width:15%">Город</th>
-                <th class="text-center" scope="col" style="width:13%">Дата создания</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="candidate: ${candidates}">
-                <td th:text="${candidate.id}"></td>
-                <td th:text="${candidate.name}"></td>
-                <td class="text-center">
-                    <img alt="Нет фото" th:width="200" th:src="@{|/photoCandidate/${candidate.id}|}">
-                </td>
-                <td th:text="${candidate.description}"></td>
-                <td class="text-center" th:text="${candidate.city.name}"></td>
-                <td class="text-center" th:text="${candidate.created}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <hr class="row bg-light"/>
 </div>
 </body>
 </html>
