@@ -11,15 +11,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.model.Candidate;
+import ru.job4j.model.User;
 import ru.job4j.service.CandidateService;
 import ru.job4j.service.CityService;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @ThreadSafe
 @Controller
 public class CandidateController {
     private static final String REDIRECT = "redirect:/candidates";
+    private static final String GUEST = "Гость";
 
     private final CandidateService candidateService;
 
@@ -31,15 +34,27 @@ public class CandidateController {
     }
 
     @GetMapping("/candidates")
-    public String candidates(Model model) {
+    public String candidates(Model model, HttpSession session) {
         model.addAttribute("candidates", candidateService.findAll());
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName(GUEST);
+        }
+        model.addAttribute("user", user);
         return "candidates";
     }
 
     @GetMapping("/formAddCandidate")
-    public String addCandidate(Model model) {
+    public String addCandidate(Model model, HttpSession session) {
         model.addAttribute("candidate", new Candidate());
         model.addAttribute("cities", cityService.getAllCities());
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName(GUEST);
+        }
+        model.addAttribute("user", user);
         return "addCandidate";
     }
 
@@ -53,9 +68,15 @@ public class CandidateController {
     }
 
     @GetMapping("/formUpdateCandidate/{candidateId}")
-    public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id) {
+    public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id, HttpSession session) {
         model.addAttribute("candidate", candidateService.findById(id));
         model.addAttribute("cities", cityService.getAllCities());
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName(GUEST);
+        }
+        model.addAttribute("user", user);
         return "updateCandidate";
     }
 
