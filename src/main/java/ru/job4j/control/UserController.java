@@ -26,12 +26,14 @@ public class UserController {
     }
 
     @GetMapping("/fail")
-    public String failForm() {
+    public String failForm(Model model) {
+        model.addAttribute("message", "Ошибка регистрации!");
         return "fail";
     }
 
     @GetMapping("/success")
-    public String successForm() {
+    public String successForm(Model model) {
+        model.addAttribute("message", "Регистрация прошла успешно!");
         return "success";
     }
 
@@ -39,7 +41,6 @@ public class UserController {
     public String registration(Model model, @ModelAttribute User user) {
         Optional<User> regUser = userService.add(user);
         if (regUser.isEmpty()) {
-            model.addAttribute("message", "Пользователь с такой почтой уже существует");
             return "redirect:/fail";
         }
         return "redirect:/success";
