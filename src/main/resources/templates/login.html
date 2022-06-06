@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -21,7 +21,7 @@
     <title>Работа мечты!</title>
 </head>
 <body>
-<div class="container">
+<div class="container pt-3">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" th:href="@{/index}">Dream Job</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
@@ -31,21 +31,35 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <ul class="nav nav-pills">
-                    <a class="nav-item nav-link bg-light" th:href="@{/index}">Главная </a>
-                    <a class="nav-item nav-link bg-light" th:href="@{/posts}">Вакансии</a>
-                    <a class="nav-item nav-link bg-light" th:href="@{/formAddPost}">Добавить вакансию</a>
-                    <a class="nav-item nav-link bg-light" th:href="@{/candidates}">Кандидаты</a>
-                    <a class="nav-item nav-link bg-light" th:href="@{/formAddCandidate}">Добавить кандидата</a>
+                    <a class="nav-item nav-link bg-light" th:href="@{/index}">Главная <span
+                            class="sr-only">(current)</span></a>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="row">
         <div class="card" style="width: 100%">
-            <div class="card-header text-center">
-                <h2 th:text="${message}"></h2>
-                <a th:href="@{/index}" class="btn btn-primary mt-3 active" role="button" aria-pressed="true">
-                    Вернутся на главную</a>
+            <div class="card-header">
+                Авторизация
+            </div>
+            <div class="card-body">
+                <div th:if="${fail}" class="alert alert-danger" role="alert">
+                    Логин или пароль введены не верно!
+                </div>
+                <form th:action="@{/login}" method="POST">
+                    <div class="form-group">
+                        <label>Почта</label>
+                        <input type="email" placeholder="example@gmail.com" class="form-control" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <input type="password" placeholder="*************" class="form-control" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Войти</button>
+                    <a th:href="@{/registration}" class="btn btn-secondary ml-2 active" role="button"
+                       aria-pressed="true">
+                        Регистрация</a>
+                </form>
             </div>
         </div>
     </div>

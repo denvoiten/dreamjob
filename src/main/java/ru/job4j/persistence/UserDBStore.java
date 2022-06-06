@@ -33,9 +33,9 @@ public class UserDBStore {
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getPassword());
             ps.execute();
-            try (ResultSet id = ps.getGeneratedKeys()) {
-                if (id.next()) {
-                    user.setId(id.getInt(1));
+            try (ResultSet it = ps.getGeneratedKeys()) {
+                if (it.next()) {
+                    user.setId(it.getInt(1));
                 }
             }
             rsl = Optional.of(user);
@@ -44,4 +44,29 @@ public class UserDBStore {
         }
         return rsl;
     }
+
+    public Optional<User> findUserByEmailAndPwd(String email, String password) {
+        Optional<User> rsl = Optional.empty();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM users WHERE email = ? AND password = ?")
+        ) {
+            ps.setString(1, email);
+            ps.setString(2, password);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    rsl = Optional.of(
+                            new User(
+                            it.getInt("id"),
+                            it.getString("name"),
+                            it.getString("email"),
+                            it.getString("password")
+                    ));
+                }
+            }
+        } catch (Exception e) {
+            LOG.error("Exception in FIND USER method", e);
+        }
+        return rsl;
+    }
+
 }
