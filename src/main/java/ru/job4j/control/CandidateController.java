@@ -33,15 +33,19 @@ public class CandidateController {
         this.cityService = cityService;
     }
 
-    @GetMapping("/candidates")
-    public String candidates(Model model, HttpSession session) {
-        model.addAttribute("candidates", candidateService.findAll());
+    private void setUser(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
             user = new User();
             user.setName(GUEST);
         }
         model.addAttribute("user", user);
+    }
+
+    @GetMapping("/candidates")
+    public String candidates(Model model, HttpSession session) {
+        model.addAttribute("candidates", candidateService.findAll());
+        setUser(model, session);
         return "candidates";
     }
 
@@ -49,12 +53,7 @@ public class CandidateController {
     public String addCandidate(Model model, HttpSession session) {
         model.addAttribute("candidate", new Candidate());
         model.addAttribute("cities", cityService.getAllCities());
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName(GUEST);
-        }
-        model.addAttribute("user", user);
+        setUser(model, session);
         return "addCandidate";
     }
 
@@ -71,12 +70,7 @@ public class CandidateController {
     public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id, HttpSession session) {
         model.addAttribute("candidate", candidateService.findById(id));
         model.addAttribute("cities", cityService.getAllCities());
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName(GUEST);
-        }
-        model.addAttribute("user", user);
+        setUser(model, session);
         return "updateCandidate";
     }
 
